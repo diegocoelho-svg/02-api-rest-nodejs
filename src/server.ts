@@ -5,7 +5,9 @@ import crypto from 'node:crypto'
 const app = fastify()
 
 app.get('/hello', async () => {
-  const transactions = await knex('transactions').select('*') //selecionar todas as transações criadas
+  const transactions = await knex('transactions')
+    .where('Amount', 500)
+    .select('*') //selecionar todas as transações criadas
 
   return transactions
 })
