@@ -14,16 +14,13 @@ export async function transactionsRoutes(app: FastifyInstance) {
 
     const { title, amount, type } = createTransactionBodySchema.parse(request.body) //validando os dados para ver se bate com o schema
 
-  
      await knex ('transactions')
     .insert({
       id: randomUUID(),
       title,
       amount: type === 'credit' ? amount : amount * -1,
     })
-
-    //http codes -> 201, recurso criado com sucesso
-
+ 
     return reply.status(201).send()
   })
 }
