@@ -2,16 +2,11 @@ import fastify from 'fastify'
 import { knex } from './database'
 import crypto from 'node:crypto'
 import { env } from './env'
+import { transactionsRoutes } from './routes/transactions'
 
 const app = fastify()
 
-app.get('/hello', async () => {
-  const transactions = await knex('transactions')
-    .where('Amount', 500)
-    .select('*') //selecionar todas as transações criadas
-
-  return transactions
-})
+app.register(transactionsRoutes)
 
 app.listen({
   port: env.PORT,
