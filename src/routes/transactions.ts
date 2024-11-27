@@ -38,6 +38,16 @@ export async function transactionsRoutes(app: FastifyInstance) {
     type: z.enum(['credit', 'debit']),
     })
 
+    let sessionId = request.cookies.sessionId // procurando dentro dos cookies, se já existe uma session id (dentro do POST)
+
+    if (!sessionId) {
+      sessionId = randomUUID()
+      reply.cookie('sessionId', sessionId, {
+        path: '/', //qualquer rota pode acessar
+        maxAge: 60 * 60 * 24 * 7 // 7 days CLEAN CODE
+      })
+    }
+
     const { title, amount, type } = createTransactionBodySchema.parse(request.body) //validando os dados para ver se bate com o schema
 
      await knex ('transactions')
@@ -45,6 +55,7 @@ export async function transactionsRoutes(app: FastifyInstance) {
       id: randomUUID(),
       title,
       amount: type === 'credit' ? amount : amount * -1,
+      session_id: sessionId,
     })
  
     return reply.status(201).send()
