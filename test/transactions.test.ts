@@ -1,4 +1,4 @@
-import { test, beforeAll, afterAll, describe } from 'vitest'
+import { it, beforeAll, afterAll, describe } from 'vitest'
 import request from 'supertest'
 import { app } from '../src/app' //vai tentar subir um servidor na porta 3333
 
@@ -11,7 +11,7 @@ describe('Transactions routes', () => {
     await app.close()
   })
   
-  test('User can create a new transaction', async () => {
+  it.only('should be able to create a new transaction', async () => {
     // fazer a chamada http p/ criar uma nova transação
     const response = await request(app.server)
       .post('/transactions')
@@ -22,6 +22,12 @@ describe('Transactions routes', () => {
       })
   
       .expect(201) // -> valida se o retorno foi um status 201
+
+    console.log(response.headers) // ou pode ser console.log(response.get('Set-cookie'))
+  })
+
+  it.skip('should be able to list all transactions', async () => {
+
   })
 
 })
