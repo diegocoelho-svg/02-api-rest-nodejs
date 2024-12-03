@@ -9,8 +9,9 @@ if(process.env.NODE_ENV === 'test') {
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('production'), //enum deve ser: development OU test OU production
+  DATABASE_CLIENT: z.enum(['sqlite', 'pg']),
   DATABASE_URL: z.string(),
-  PORT: z.number().default(3333),
+  PORT: z.coerce.number().default(3333), // não interessa o tipo do valor q receber na porta, transforme em um número, e o resultado é 3333
 })  //formato de dados que receberá da variavel ambiente
 
 const _env = envSchema.safeParse(process.env) //valida porém não dispara um erro quando a validação falhe
