@@ -2,9 +2,9 @@
 node_modules
 
 # database
-# db/test.db
-# db/app.db
-db/*.db
+db/test.db
+db/app.db
+
 
 #environment
 .env
