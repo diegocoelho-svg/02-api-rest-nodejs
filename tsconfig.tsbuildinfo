@@ -1,0 +1,1 @@
+{"root":["./src/app.ts","./src/database.ts","./src/server.ts","./src/@types/knex.d.ts","./src/env/index.ts","./src/middlewares/check-session-id-exists.ts","./src/routes/transactions.ts"],"version":"5.6.3"}
